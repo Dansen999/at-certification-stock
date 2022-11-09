@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {formatDate} from "@angular/common";
 
 @Pipe({
@@ -6,11 +6,14 @@ import {formatDate} from "@angular/common";
 })
 export class MonthPipe implements PipeTransform {
 
-  transform(value: number): unknown {
+  transform(value: number | string): string {
 
     let date = new Date();
-    date.setMonth(value);
-    return formatDate(date, 'MMMM','en-US');
+    if (typeof value === 'number') {
+      date.setMonth(value);
+      return formatDate(date, 'MMMM', 'en-US');
+    }
+    return 'NaN'
   }
 
 }

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SentimentComponent } from './sentiment.component';
+import {MonthPipe} from "../../pipes/month.pipe";
+import {TendencyComponent} from "../tendency/tendency.component";
+import {ActivatedRoute, RouterModule} from "@angular/router";
 
 describe('SentinmentComponent', () => {
   let component: SentimentComponent;
@@ -8,7 +11,8 @@ describe('SentinmentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SentimentComponent ]
+      declarations: [ SentimentComponent, MonthPipe, TendencyComponent ],
+
     })
     .compileComponents();
 

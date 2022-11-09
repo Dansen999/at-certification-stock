@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SentimentCardComponent } from './sentiment-card.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('SentimentCardComponent', () => {
   let component: SentimentCardComponent;
@@ -8,7 +9,11 @@ describe('SentimentCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SentimentCardComponent ]
+      declarations: [ SentimentCardComponent ],
+      imports: [
+        HttpClientTestingModule
+      ]
+
     })
     .compileComponents();
 
