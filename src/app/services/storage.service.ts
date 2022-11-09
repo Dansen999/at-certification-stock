@@ -6,30 +6,51 @@ import {BehaviorSubject} from "rxjs";
 })
 export class StorageService implements OnDestroy {
 
-  private storage: string[] = [];
+  private readonly storageKey = 'symbols'
   private _storage$ = new BehaviorSubject<string[]>([]);
 
   constructor() {
   }
 
+  private getSymbols(): string[] {
+    try {
+      const symbols = JSON.parse(localStorage.getItem(this.storageKey) || '');
+      if (Array.isArray(symbols)) {
+        return symbols;
+      }
+    } catch (e) {
+      console.log("Failed reading symbols.")
+    }
+    localStorage.setItem(this.storageKey, '[]');
+    return [];
+  }
+
+  private storeSymbols(symbols: string[]): void {
+      localStorage.setItem(this.storageKey, JSON.stringify(symbols));
+  }
+
   add(symbol: string): void {
-    this.storage.push(symbol);
-    this._storage$.next(this.storage)
+    const symbols = this.getSymbols();
+    symbols.push(symbol);
+    this.storeSymbols(symbols);
+    this._storage$.next(symbols);
   }
 
   remove(symbol: string): void {
-    console.log('Remove ' + symbol)
+    const symbols = this.getSymbols();
 
-    let index = this.storage.findIndex(item => item == symbol);
+    let index = symbols.findIndex(item => item == symbol);
     if (index > -1) {
-      this.storage.splice(index, 1);
+      symbols.splice(index, 1);
     }
-
-    console.log(this.storage)
-    this._storage$.next(this.storage)
+    this.storeSymbols(symbols);
+    this._storage$.next(symbols)
   }
 
   get(): BehaviorSubject<string[]> {
+    if (this._storage$.value.length === 0) {
+      this._storage$.next(this.getSymbols());
+    }
     return this._storage$;
   }
 
