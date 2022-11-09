@@ -8,13 +8,15 @@
       <mat-form-field>
         <input id="stockInput"
                matInput
+               maxlength="5"
+               minlength="1"
                [(ngModel)]="symbolInput"/>
       </mat-form-field>
 
       <button id="trackBtn"
               mat-stroked-button
               color="primary"
-              [disabled]="disabled"
+              [disabled]="disabled || symbolInput.length == 0"
               (click)="addSymbol()">Track Stock
       </button>
     </div>
