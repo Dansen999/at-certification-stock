@@ -1,28 +1,26 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {Company} from "../model/company-data";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService implements OnDestroy {
 
-  private storage: Company[] = [];
-
-  private _storage$ = new BehaviorSubject<Company[]>([]);
+  private storage: string[] = [];
+  private _storage$ = new BehaviorSubject<string[]>([]);
 
   constructor() {
   }
 
-  add(company: Company): void {
-    this.storage.push(company);
+  add(symbol: string): void {
+    this.storage.push(symbol);
     this._storage$.next(this.storage)
   }
 
   remove(symbol: string): void {
     console.log('Remove ' + symbol)
 
-    let index = this.storage.findIndex(company => company.symbol == symbol);
+    let index = this.storage.findIndex(item => item == symbol);
     if (index > -1) {
       this.storage.splice(index, 1);
     }
@@ -31,7 +29,7 @@ export class StorageService implements OnDestroy {
     this._storage$.next(this.storage)
   }
 
-  get(): BehaviorSubject<Company[]> {
+  get(): BehaviorSubject<string[]> {
     return this._storage$;
   }
 

@@ -1,26 +1,28 @@
 <mat-card>
   <mat-card-content>
-    <p>
-      Enter the symbol of a stock to track (i.e. AAPL, TSLA, GOOGL)
-    </p>
+    <div class="search-box">
+      <p>
+        Enter the symbol of a stock to track (i.e. AAPL, TSLA, GOOGL)
+      </p>
 
-    <mat-form-field>
-      <input id="stockInput"
-             matInput
-             [(ngModel)]="symbol"/>
-    </mat-form-field>
+      <mat-form-field>
+        <input id="stockInput"
+               matInput
+               [(ngModel)]="symbolInput"/>
+      </mat-form-field>
 
-    <button id="trackBtn"
-            mat-stroked-button
-            color="primary"
-            [disabled]="disabled"
-            (click)="addSymbol()">Track Stock
-    </button>
+      <button id="trackBtn"
+              mat-stroked-button
+              color="primary"
+              [disabled]="disabled"
+              (click)="addSymbol()">Track Stock
+      </button>
+    </div>
   </mat-card-content>
 </mat-card>
 
 <mat-divider></mat-divider>
 
-<ng-container *ngFor="let company of storageService.get() | async ">
-  <app-stock-card [company]="company"></app-stock-card>
+<ng-container *ngFor="let symbol of storageService.get() | async ">
+  <app-stock-card [symbol]="symbol"></app-stock-card>
 </ng-container>

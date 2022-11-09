@@ -19,3 +19,18 @@ export interface QuoteResponse {
   o: number;
   pc: number;
 }
+
+export interface InsiderSentimentData {
+  symbol: string;
+  year: number;
+  month: number;
+  change: number;
+  mspr: number;
+}
+
+export interface InsiderSentimentResponse {
+  data: Array<InsiderSentimentData>;
+  symbol: string;
+}
+
+

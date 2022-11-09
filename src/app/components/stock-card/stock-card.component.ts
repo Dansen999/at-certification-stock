@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FinnhubService} from "../../services/finnhub.service";
 import {Company, QuoteResponse} from "../../model/company-data";
-import {Subject, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {StorageService} from "../../services/storage.service";
 
 @Component({
@@ -12,9 +12,14 @@ import {StorageService} from "../../services/storage.service";
 export class StockCardComponent implements OnInit, OnDestroy {
 
   @Input()
-  company = {} as Company;
+  symbol = '';
 
-  private _quote$ = new Subject<QuoteResponse>();
+  loaded = false;
+  company!: Company;
+  quote!: QuoteResponse;
+
+
+  private loadedSubs = 0;
   private subs: Subscription[] = [];
 
   constructor(public finnhubService: FinnhubService,
@@ -22,19 +27,22 @@ export class StockCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subs.push(this.finnhubService.getQuote(this.company.symbol).subscribe(value => this._quote$.next(value)));
+    this.subs.push(this.finnhubService.getCompany(this.symbol).subscribe(value => {
+      this.company = value;
+      this.loaded = ++this.loadedSubs == this.subs.length;
+    }));
+    this.subs.push(this.finnhubService.getQuote(this.symbol).subscribe(value => {
+      this.quote = value;
+      this.loaded = ++this.loadedSubs == this.subs.length;
+    }));
   }
 
-  getQuote(): Subject<QuoteResponse> {
-    return this._quote$;
-  }
 
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
-    this._quote$.complete();
   }
 
   remove() {
-    this.storageService.remove(this.company.symbol);
+    this.storageService.remove(this.symbol);
   }
 }

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {FinnhubService} from "../../services/finnhub.service";
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-sentiment',
@@ -8,9 +7,19 @@ import {FinnhubService} from "../../services/finnhub.service";
 })
 export class SentimentComponent implements OnInit {
 
-  constructor(private finnhubService: FinnhubService) { }
+  @Input()
+  month!: number;
+
+  @Input()
+  change!: number;
+
+  @Input()
+  mspr!: number;
+
+
+  constructor() { }
 
   ngOnInit(): void {
-  }
 
+  }
 }

@@ -1,0 +1,21 @@
+<mat-card *ngIf="loaded; else loading">
+  <ng-container>
+    <mat-card-title>{{company.description}} ({{company.symbol}})</mat-card-title>
+    <mat-card-content>
+      <div class="grid-container content">
+        <div class="grid-item" *ngFor="let insiderSentiment of insiderSentiments ">
+          <app-sentiment [month]="insiderSentiment.month"
+                         [change]="insiderSentiment.change"
+                         [mspr]="insiderSentiment.mspr"></app-sentiment>
+        </div>
+      </div>
+    </mat-card-content>
+  </ng-container>
+</mat-card>
+
+<ng-template #loading>
+  <mat-card>
+    <mat-card-title>Loading...</mat-card-title>
+    <mat-card-content></mat-card-content>
+  </mat-card>
+</ng-template>

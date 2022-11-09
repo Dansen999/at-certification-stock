@@ -1,0 +1,11 @@
+<div class="grid-container ">
+  <div class="grid-item">
+    <p><span class="label">{{month | month }}</span></p>
+    <p><span class="label">Change:</span><span class="value">{{change | number: '1.0-0'}}</span></p>
+    <p><span class="label">MSPR:</span><span class="value">{{mspr | number: '1.2-2'}}</span></p>
+  </div>
+  <div class="grid-item">
+    <app-tendency [value]="change"></app-tendency>
+  </div>
+</div>
+

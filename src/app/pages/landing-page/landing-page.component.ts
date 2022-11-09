@@ -10,7 +10,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class LandingPageComponent implements OnInit {
 
-  symbol = '';
+  symbolInput = '';
   disabled = false;
 
   constructor(public finnhubService: FinnhubService,
@@ -24,29 +24,16 @@ export class LandingPageComponent implements OnInit {
 
 
   addSymbol() {
-    console.log('search for ' + this.symbol)
 
     // start loading...
     this.disabled = true;
-    this.finnhubService.searchSymbol(this.symbol).subscribe(value => {
-
-      if (value.count > 0) {
-
-        let company = value.result.find(company => company.symbol == this.symbol);
-        if (company) {
-          this.storageService.add(company);
-          this.symbol = '';
-        } else {
-          this.snackBar.open('No unique result', 'close', {duration: 10000});
-        }
-
-        this.disabled = false
-      } else {
-        this.snackBar.open('No result', 'close', {duration: 10000});
-        this.disabled = false
-      }
-    }, (error) => {
-      this.snackBar.open('Communication error', 'close', {duration: 10000});
+    this.finnhubService.getCompany(this.symbolInput).subscribe(value => {
+      this.storageService.add(value.symbol);
+      this.symbolInput = '';
+      this.disabled = false;
+    }, (error: string) => {
+      this.snackBar.open(error, 'close', {duration: 10000});
+      this.disabled = false;
     });
   }
 }

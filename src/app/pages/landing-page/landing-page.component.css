@@ -1,7 +1,11 @@
-.mat-card {
-  margin: 1rem;
+.search-box {
+  padding: 0;
 }
 
-.mat-divider {
-  margin: 0 1rem;
+.mat-form-field {
+  margin-right: 1rem;
+}
+
+.mat-card {
+  margin: 1rem 0;
 }

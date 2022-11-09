@@ -1,0 +1,5 @@
+<ng-container *ngFor="let symbol of _symbols$ | async ">
+  <app-sentiment-card [symbol]="symbol"></app-sentiment-card>
+</ng-container>
+
+<button mat-button id="backBtn" [routerLink]="'/'">Back to list of stocks</button>

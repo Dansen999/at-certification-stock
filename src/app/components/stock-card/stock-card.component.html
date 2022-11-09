@@ -1,27 +1,54 @@
-<mat-card>
+<mat-card *ngIf="loaded; else loading">
+
   <mat-card-title>{{company.description}} ({{company.symbol}})
-    <mat-icon (click)="remove()" fontIcon="close"></mat-icon>
+    <a (click)="remove()" id="{{'remove'+ company.symbol}}" class="remove">
+      <mat-icon fontIcon="close"></mat-icon>
+    </a>
   </mat-card-title>
+
+
   <mat-card-content>
-    <ng-container *ngIf="getQuote() | async; let quote">
-      <mat-grid-list cols="4" rowHeight="4:1">
 
-        <mat-grid-tile colspan="2"></mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="3">
-          <mat-icon *ngIf="quote.dp>0" color="primary" fontIcon="arrow_upward"></mat-icon>
-          <mat-icon *ngIf="quote.dp<0" color="warn" fontIcon="arrow_downward"></mat-icon>
-          <mat-icon *ngIf="quote.dp==0" fontIcon="east"></mat-icon>
-        </mat-grid-tile>
+    <div class="grid-container content">
+      <div class="grid-item">
+        <div class="grid-container values">
+          <div class="grid-item">
+            <span class="label">Change today:</span>
+            <span class="value">{{quote.dp / 100 | percent: '1.1-1'}}</span>
+          </div>
+          <div class="grid-item">
+            <span class="label">Opening price:</span>
+            <span class="value">{{quote.o | currency: 'USD'}}</span>
+          </div>
+          <div class="grid-item">
+            <span class="label">Current price:</span>
+            <span class="value">{{quote.c | currency: 'USD'}}</span>
+          </div>
+          <div class="grid-item">
+            <span class="label">High price:</span>
+            <span class="value">{{quote.h | currency: 'USD'}}</span>
+          </div>
 
-        <mat-grid-tile><p>Change today: {{quote.dp / 100 | percent: '1.1-1'}}</p></mat-grid-tile>
-        <mat-grid-tile><p>Opening price: {{quote.o | currency: 'USD'}}</p></mat-grid-tile>
-        <mat-grid-tile><p>Current price: {{quote.c | currency: 'USD'}}</p></mat-grid-tile>
-        <mat-grid-tile><p>High price: {{quote.h | currency: 'USD'}}</p></mat-grid-tile>
-      </mat-grid-list>
-    </ng-container>
+        </div>
+      </div>
+      <div class="grid-item">
+        <app-tendency [value]="quote.dp"></app-tendency>
+      </div>
+    </div>
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <button mat-button [routerLink]="'/sentiment/' + company.symbol">Go to social sentiment details</button>
+    <button mat-button
+            id="{{'sentiment'+ company.symbol}}"
+            [routerLink]="'/sentiment/' + symbol">Go to social sentiment details
+    </button>
   </mat-card-actions>
+
 </mat-card>
+
+<ng-template #loading>
+  <mat-card>
+    <mat-card-title>Loading...</mat-card-title>
+    <mat-card-content></mat-card-content>
+  </mat-card>
+</ng-template>

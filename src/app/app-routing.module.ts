@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SentimentComponent} from "./pages/sentiment/sentiment.component";
+import {SentimentPageComponent} from "./pages/sentiment-page/sentiment-page.component";
 import {LandingPageComponent} from "./pages/landing-page/landing-page.component";
 
 const routes: Routes = [
 
-  {path: 'sentiment/:symbol', component: SentimentComponent},
+  {path: 'sentiment/:symbol', component: SentimentPageComponent},
   {path: '**', component: LandingPageComponent}
 ];
 

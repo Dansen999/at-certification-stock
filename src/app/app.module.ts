@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import {SentimentComponent} from './pages/sentiment/sentiment.component';
+import {SentimentPageComponent} from './pages/sentiment-page/sentiment-page.component';
 import {LandingPageComponent} from './pages/landing-page/landing-page.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCardModule} from "@angular/material/card";
@@ -13,18 +13,25 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatDividerModule} from "@angular/material/divider";
 import {FormsModule} from "@angular/forms";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatGridListModule} from "@angular/material/grid-list";
-import { StockCardComponent } from './components/stock-card/stock-card.component';
+import {StockCardComponent} from './components/stock-card/stock-card.component';
 import {MatIconModule} from "@angular/material/icon";
+import {SentimentCardComponent} from './components/sentiment-card/sentiment-card.component';
+import {TendencyComponent} from './components/tendency/tendency.component';
+import {SentimentComponent} from './components/sentinment/sentiment.component';
+import { MonthPipe } from './pipes/month.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SentimentComponent,
+    SentimentPageComponent,
     LandingPageComponent,
-    StockCardComponent
+    StockCardComponent,
+    SentimentCardComponent,
+    TendencyComponent,
+    SentimentComponent,
+    MonthPipe
   ],
   imports: [
     FormsModule,
