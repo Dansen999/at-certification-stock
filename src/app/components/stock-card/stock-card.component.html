@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-title>{{company.description}} ({{company.symbol}})
+    <mat-icon (click)="remove()" fontIcon="close"></mat-icon>
+  </mat-card-title>
+  <mat-card-content>
+    <ng-container *ngIf="getQuote() | async; let quote">
+      <mat-grid-list cols="4" rowHeight="4:1">
+
+        <mat-grid-tile colspan="2"></mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="3">
+          <mat-icon *ngIf="quote.dp>0" color="primary" fontIcon="arrow_upward"></mat-icon>
+          <mat-icon *ngIf="quote.dp<0" color="warn" fontIcon="arrow_downward"></mat-icon>
+          <mat-icon *ngIf="quote.dp==0" fontIcon="east"></mat-icon>
+        </mat-grid-tile>
+
+        <mat-grid-tile><p>Change today: {{quote.dp / 100 | percent: '1.1-1'}}</p></mat-grid-tile>
+        <mat-grid-tile><p>Opening price: {{quote.o | currency: 'USD'}}</p></mat-grid-tile>
+        <mat-grid-tile><p>Current price: {{quote.c | currency: 'USD'}}</p></mat-grid-tile>
+        <mat-grid-tile><p>High price: {{quote.h | currency: 'USD'}}</p></mat-grid-tile>
+      </mat-grid-list>
+    </ng-container>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-button [routerLink]="'/sentiment/' + company.symbol">Go to social sentiment details</button>
+  </mat-card-actions>
+</mat-card>

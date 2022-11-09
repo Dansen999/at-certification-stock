@@ -1,0 +1,16 @@
+.mat-card {
+  margin: 1rem;
+}
+
+.mat-card-title .mat-icon {
+  cursor: pointer;
+  float: right;
+}
+
+.mat-grid-tile .mat-icon {
+  font-size: 4rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+
